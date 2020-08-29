@@ -1,6 +1,11 @@
 'use strict';
-
-const numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+let numberOfFilms = 0;
+do {
+  numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
+  if (numberOfFilms <= 0) {
+    alert('Введите положительное целое число!');
+  }
+} while (numberOfFilms <= 0);
 
 const personalMovieDB = {
   count: numberOfFilms,
@@ -10,12 +15,31 @@ const personalMovieDB = {
   privat: false
 };
 
-const lastMovie = prompt('Один из последних просмотренных фильмов?', ''),
-      rating = +prompt('На сколько оцените его?', ''),
-      lastMovie2 = prompt('Один из последних просмотренных фильмов?', ''),
-      rating2 = +prompt('На сколько оцените его?', '');
+for (let i = 1; i <= numberOfFilms; i++) {
+  let a = '', b = 0;
+  do {
+    a = prompt('Один из последних просмотренных фильмов?', '');
+    if (a == '') {
+      alert('Введите непустое название фильма!');
+    }
+  } while (a == '');
 
-personalMovieDB.movies[lastMovie] = rating;
-personalMovieDB.movies[lastMovie2] = rating2;
+  do {
+    b = +prompt('На сколько оцените его?', '');
+    if (b <= 0) {
+      alert('Введите положительное целое число!');
+    }
+  } while (b <= 0);
+  personalMovieDB.movies[a] = b;
+}
 
+if (personalMovieDB.count < 10) {
+  alert('Просмотрено довольно мало фильмов');
+} else if (personalMovieDB.count < 30) {
+  alert('Вы классический зритель');
+} else if (personalMovieDB.count >= 30) {
+  alert('Вы киноман');
+} else {
+  alert('ERROR!');
+}
 console.log(personalMovieDB);
